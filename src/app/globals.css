@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+/*
+ * Light and colourful. Every sheet takes its tint and accent from its own photograph:
+ * sky blue (hillside), garden green (courtyard), sea teal (cliff), brick (London), and so on.
+ * Ink is a deep navy rather than black so the page never reads as newsprint.
+ */
+:root {
+  --ink: #15203a;
+  --graphite: #59627a;
+  --paper: #f6f8fc;
+  --paper-2: #edf1f8;
+  --accent: #2b50d8;
+  --rule: color-mix(in srgb, var(--accent) 14%, transparent);
+}
+.t-sky { --paper: #eaf1fc; --paper-2: #dfe9fa; --accent: #2b50d8; }
+.t-green { --paper: #eaf4eb; --paper-2: #ddeedf; --accent: #237a4b; }
+.t-teal { --paper: #e3f4f5; --paper-2: #d4edef; --accent: #0a7280; }
+.t-brick { --paper: #fbeeea; --paper-2: #f7e1db; --accent: #bf3a2c; }
+.t-butter { --paper: #fff6dc; --paper-2: #fdedc2; --accent: #8a5f00; }
+.t-violet { --paper: #f2eefb; --paper-2: #e8e1f8; --accent: #5b3cc4; }
+.t-pink { --paper: #fcecf3; --paper-2: #f8dde9; --accent: #b02a6b; }
+.t-mint { --paper: #e6f6ef; --paper-2: #d5efe3; --accent: #187f57; }
+.t-blue { --paper: #eef0ff; --paper-2: #e1e5fd; --accent: #3340c9; }
+.t-white { --paper: #ffffff; --paper-2: #f3f5fa; --accent: #2b50d8; }
+/* custom properties resolve where they are declared, so the grid colour is re-declared per theme */
+.t-sky, .t-green, .t-teal, .t-brick, .t-butter, .t-violet, .t-pink, .t-mint, .t-blue, .t-white {
+  --rule: color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-ink: var(--ink);
+  --color-graphite: var(--graphite);
+  --color-rule: var(--rule);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-archivo), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-martian), ui-monospace, monospace;
+}
+
+html {
+  scroll-padding-top: 5rem;
+  background: #f6f8fc;
+  color: var(--ink);
+}
+body {
+  font-family: var(--font-sans);
+  font-variation-settings: "wdth" 100;
+}
+::selection {
+  background: var(--accent);
+  color: var(--paper);
+}
+
+/* Archivo is variable in width: the headline mixes very narrow and very wide cuts */
+.w-narrow {
+  font-variation-settings: "wdth" 62;
+}
+.w-wide {
+  font-variation-settings: "wdth" 125;
+}
+
+/* small technical labels */
+.label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* faint drafting grid, 8 mm squares */
+.grid-paper {
+  background-image:
+    linear-gradient(var(--rule) 1px, transparent 1px),
+    linear-gradient(90deg, var(--rule) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-position: -1px -1px;
+}
+
+/* the crosshair replaces the pointer only where it is shown */
+.cursor-cross,
+.cursor-cross * {
+  cursor: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
